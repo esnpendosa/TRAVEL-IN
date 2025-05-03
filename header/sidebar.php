@@ -479,7 +479,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="sidebar">
         <div class="sidebar-brand">
             <!-- Logo placeholder - replace with your actual logo -->
-            <img src="../assets/img/logo.png" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzRjY2Y1MCI+PHBhdGggZD0iTTEyLDJMMSwyMUgyM1oiIHN0cm9rZT0iIzRjY2Y1MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4='" alt="Rencana-IN Logo">
+            <img src="../asset/logo.png" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzRjY2Y1MCI+PHBhdGggZD0iTTEyLDJMMSwyMUgyM1oiIHN0cm9rZT0iIzRjY2Y1MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4='" alt="Rencana-IN Logo">
             <h2>Rencana-IN</h2>
         </div>
         
