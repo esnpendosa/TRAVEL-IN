@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,13 +6,14 @@ if (!isset($_SESSION['user_id'])) {
     <title>Dashboard - Rencana-IN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ROOT VARIABEL UNTUK KONSISTENSI WARNA DAN UKURAN */
         :root {
-            --primary: #4CAF50;
-            --primary-dark: #3d8b40;
-            --secondary: #6c757d;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --white: #ffffff;
+            --primary: #4CAF50; /* Hijau utama */
+            --primary-dark: #3d8b40; /* Versi gelap hijau */
+            --secondary: #6c757d; /* Abu-abu sekunder */
+            --light: #f8f9fa; /* Background terang */
+            --dark: #343a40; /* Warna teks gelap */
+            --white: #ffffff; /* Putih */
             --sidebar-width: 250px;
             --header-height: 60px;
         }
@@ -37,7 +30,7 @@ if (!isset($_SESSION['user_id'])) {
             overflow-x: hidden;
         }
 
-        /* Sidebar */
+        /* SIDEBAR STYLING */
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
@@ -46,7 +39,6 @@ if (!isset($_SESSION['user_id'])) {
             top: 0;
             left: 0;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -112,14 +104,13 @@ if (!isset($_SESSION['user_id'])) {
             flex-shrink: 0;
         }
 
-        /* Main Content */
+        /* HEADER DI BAGIAN ATAS */
         .main {
             margin-left: var(--sidebar-width);
             min-height: 100vh;
             transition: all 0.3s ease;
         }
 
-        /* Header */
         .header {
             height: var(--header-height);
             background-color: var(--white);
@@ -157,14 +148,7 @@ if (!isset($_SESSION['user_id'])) {
             border-radius: 0.25rem;
             border: 1px solid #e1e5eb;
             background-color: #f5f7fa;
-            transition: all 0.3s;
             font-size: 0.875rem;
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
-            background-color: var(--white);
         }
 
         .search-bar i {
@@ -201,260 +185,9 @@ if (!isset($_SESSION['user_id'])) {
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            flex-shrink: 0;
         }
 
-        /* Content */
-        .content {
-            padding: 1.5rem;
-        }
-
-        .page-header {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .page-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        .page-title h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            color: var(--dark);
-        }
-
-        @media (min-width: 768px) {
-            .page-title h1 {
-                font-size: 1.75rem;
-                margin: 0;
-            }
-        }
-
-        .breadcrumb {
-            display: flex;
-            flex-wrap: wrap;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 0.875rem;
-        }
-
-        .breadcrumb-item + .breadcrumb-item::before {
-            content: "/";
-            padding: 0 0.5rem;
-            color: var(--secondary);
-        }
-
-        .breadcrumb-item.active {
-            color: var(--primary);
-        }
-
-        /* Cards */
-        .card {
-            background-color: var(--white);
-            border-radius: 0.375rem;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            margin-bottom: 1.5rem;
-            border: none;
-            overflow: hidden;
-        }
-
-        .card-header {
-            padding: 1rem 1.25rem;
-            background-color: transparent;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-        }
-
-        @media (min-width: 576px) {
-            .card-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        .card-title {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        @media (min-width: 576px) {
-            .card-title {
-                margin: 0;
-            }
-        }
-
-        .card-body {
-            padding: 1.25rem;
-        }
-
-        /* Stats Cards */
-        .stats-row {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (min-width: 576px) {
-            .stats-row {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 992px) {
-            .stats-row {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .stat-card {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border-radius: 0.375rem;
-            background-color: var(--white);
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 0.75rem;
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        @media (min-width: 768px) {
-            .stat-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 1.25rem;
-            }
-        }
-
-        .stat-info h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 0 0 0.15rem;
-        }
-
-        @media (min-width: 768px) {
-            .stat-info h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        .stat-info p {
-            color: var(--secondary);
-            margin: 0;
-            font-size: 0.75rem;
-        }
-
-        @media (min-width: 768px) {
-            .stat-info p {
-                font-size: 0.875rem;
-            }
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.375rem 0.75rem;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-link {
-            color: var(--primary);
-            background: none;
-            border: none;
-            padding: 0;
-            font-size: 0.875rem;
-        }
-
-        .btn-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            
-            .sidebar.show {
-                transform: translateX(0);
-            }
-            
-            .main {
-                margin-left: 0;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .search-bar {
-                margin-left: 0;
-                width: auto;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 0 1rem;
-            }
-            
-            .user-menu .dropdown-toggle span {
-                display: none;
-            }
-            
-            .user-menu .dropdown-toggle i {
-                margin-left: 0;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .content {
-                padding: 1rem;
-            }
-            
-            .search-bar {
-                display: none;
-            }
-        }
-
-        /* Overlay for mobile sidebar */
+        /* OVERLAY UNTUK MOBILE SIDEBAR */
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -465,24 +198,40 @@ if (!isset($_SESSION['user_id'])) {
             z-index: 999;
             display: none;
         }
-        
+
         .sidebar-overlay.show {
             display: block;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar Overlay (Mobile) -->
+    <!-- Overlay untuk sidebar saat tampil di mobile -->
     <div class="sidebar-overlay"></div>
-    
-    <!-- Sidebar -->
+
+    <!-- Sidebar navigasi utama -->
     <div class="sidebar">
         <div class="sidebar-brand">
-            <!-- Logo placeholder - replace with your actual logo -->
-            <img src="../asset/logo.png" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzRjY2Y1MCI+PHBhdGggZD0iTTEyLDJMMSwyMUgyM1oiIHN0cm9rZT0iIzRjY2Y1MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4='" alt="Rencana-IN Logo">
+            <img src="../asset/logo.png" alt="Rencana-IN Logo">
             <h2>Rencana-IN</h2>
         </div>
-        
         <nav class="sidebar-nav">
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li class="nav-item">
@@ -531,19 +280,16 @@ if (!isset($_SESSION['user_id'])) {
         </nav>
     </div>
 
-    <!-- Main Content -->
+    <!-- Header Atas -->
     <div class="main">
-        <!-- Header -->
         <header class="header">
             <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
-            
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Cari...">
             </div>
-            
             <div class="user-menu">
                 <a href="#" class="dropdown-toggle">
                     <div class="avatar">
@@ -554,77 +300,6 @@ if (!isset($_SESSION['user_id'])) {
                 </a>
             </div>
         </header>
-        
-        <!-- Content -->
-        <div class="content">
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-title">
-                    <h1>Dashboard</h1>
-                </div>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                    </ol>
-                </nav>
-            </div>
-            
-            <!-- Stats Cards -->
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background-color: rgba(76, 175, 80, 0.1); color: var(--primary);">
-                        <i class="fas fa-umbrella-beach"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>24</h3>
-                        <p>Wisata Tersedia</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="background-color: rgba(108, 117, 125, 0.1); color: var(--secondary);">
-                        <i class="fas fa-bus"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>12</h3>
-                        <p>Transportasi</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="background-color: rgba(220, 53, 69, 0.1); color: #dc3545;">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>36</h3>
-                        <p>Tempat Kuliner</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="background-color: rgba(13, 110, 253, 0.1); color: #0d6efd;">
-                        <i class="fas fa-hotel"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>18</h3>
-                        <p>Penginapan</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Recent Trips Card -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Trip Terakhir</h5>
-                    <a href="#" class="btn btn-link">Lihat Semua</a>
-                </div>
-                <div class="card-body">
-                    <p>Belum ada trip yang direncanakan. Mulai rencanakan perjalanan Anda sekarang!</p>
-                    <button class="btn btn-primary">Buat Trip Baru</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -632,35 +307,26 @@ if (!isset($_SESSION['user_id'])) {
             const sidebar = document.querySelector('.sidebar');
             const sidebarOverlay = document.querySelector('.sidebar-overlay');
             const menuToggle = document.querySelector('.menu-toggle');
-            const mainContent = document.querySelector('.main');
-            
-            // Toggle sidebar on menu button click
+
+            // Tampilkan dan sembunyikan sidebar saat tombol ditekan
             menuToggle.addEventListener('click', function() {
                 sidebar.classList.toggle('show');
                 sidebarOverlay.classList.toggle('show');
             });
-            
-            // Close sidebar when clicking on overlay
+
+            // Klik overlay untuk menutup sidebar
             sidebarOverlay.addEventListener('click', function() {
                 sidebar.classList.remove('show');
                 sidebarOverlay.classList.remove('show');
             });
-            
-            // Handle window resize
-            function handleResize() {
+
+            // Tangani resize jendela untuk menutup sidebar di layar besar
+            window.addEventListener('resize', function() {
                 if (window.innerWidth > 992) {
                     sidebar.classList.remove('show');
                     sidebarOverlay.classList.remove('show');
                 }
-            }
-            
-            window.addEventListener('resize', handleResize);
-            
-            // Logo fallback if image fails to load
-            const logo = document.querySelector('.sidebar-brand img');
-            logo.onerror = function() {
-                this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzRjY2Y1MCI+PHBhdGggZD0iTTEyLDJMMSwyMUgyM1oiIHN0cm9rZT0iIzRjY2Y1MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=';
-            };
+            });
         });
     </script>
 </body>

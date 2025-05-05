@@ -1,9 +1,9 @@
 <?php
 // Konfigurasi database
 $host = 'localhost';      // biasanya localhost
-$user = 'root';           // ganti sesuai username database kamu
-$pass = '';               // isi dengan password database kamu, jika ada
-$db   = 'travel_in';      // nama database yang sudah dibuat
+$user = 'u102554178_ojek';           // ganti sesuai username database kamu
+$pass = 'Mohas@d121203';               // isi dengan password database kamu, jika ada
+$db   = 'u102554178_ojek';      // nama database yang sudah dibuat
 
 // Membuat koneksi
 $conn = new mysqli($host, $user, $pass, $db);
