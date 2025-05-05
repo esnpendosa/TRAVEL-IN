@@ -1,3 +1,12 @@
+<?php
+session_start();
+require '../koneksi.php';
+
+// Ambil nama pengguna dari session jika tersedia
+$namaPengguna = isset($_SESSION['user']['nama_lengkap']) ? $_SESSION['user']['nama_lengkap'] : 'Pengguna';
+$inisial = strtoupper(substr($namaPengguna, 0, 1));
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -293,9 +302,9 @@
             <div class="user-menu">
                 <a href="#" class="dropdown-toggle">
                     <div class="avatar">
-                        <?php echo strtoupper(substr($_SESSION['user_name'], 0, 1)); ?>
+                        <?php echo $inisial; ?>
                     </div>
-                    <span><?php echo $_SESSION['user_name']; ?></span>
+                    <span><?php echo htmlspecialchars($namaPengguna); ?></span>
                     <i class="fas fa-caret-down ml-2"></i>
                 </a>
             </div>
